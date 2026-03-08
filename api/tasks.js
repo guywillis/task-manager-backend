@@ -69,7 +69,6 @@ module.exports = (req, res) => {
     tasks.push(newTask);
     res.status(201).json(newTask);
   } else if (req.method === 'PUT') {
-    console.log('test', req);
     // Update a task by ID (from URL parameter)
     const taskId = parseInt(req.params.id); // Changed from req.query.id to req.params.id
     const task = tasks.find(t => t.id === taskId);
@@ -89,5 +88,3 @@ module.exports = (req, res) => {
     res.status(405).json({ message: 'Method Not Allowed' });
   }
 };
-
-// commonJS vs ES Modules
