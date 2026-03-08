@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-app.use(express.json());  // For parsing JSON request bodies
+app.use(express.json()); // Middleware to parse JSON request body
 
-// In-memory task list (you can later switch to a database)
+// In-memory task list (You can replace this with a database later)
 let tasks = [
   { id: 1, title: 'Learn Express.js', completed: false },
   { id: 2, title: 'Build a Task Manager App', completed: false },
@@ -25,10 +25,10 @@ app.post('/tasks', (req, res) => {
   res.status(201).json(newTask);
 });
 
-// PUT /tasks/:id - Update a task by ID (e.g., mark as completed)
+// PUT /tasks/:id - Update a task by ID
 app.put('/tasks/:id', (req, res) => {
   const taskId = parseInt(req.params.id);
-  const task = tasks.find(t => t.id === taskId);
+  const task = tasks.find((task) => task.id === taskId);
   if (!task) {
     return res.status(404).json({ message: 'Task not found' });
   }
@@ -39,11 +39,11 @@ app.put('/tasks/:id', (req, res) => {
 // DELETE /tasks/:id - Delete a task by ID
 app.delete('/tasks/:id', (req, res) => {
   const taskId = parseInt(req.params.id);
-  tasks = tasks.filter(t => t.id !== taskId);
+  tasks = tasks.filter((task) => task.id !== taskId);
   res.status(204).end();
 });
 
-// Export serverless function (Vercel needs this)
+// Export the Express app as a serverless function
 module.exports = (req, res) => {
-  app(req, res);  // Passes the request to the Express app
+  app(req, res);  // Pass the request to the Express app
 };
