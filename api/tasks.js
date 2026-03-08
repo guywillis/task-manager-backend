@@ -69,8 +69,8 @@ module.exports = (req, res) => {
     tasks.push(newTask);
     res.status(201).json(newTask);
   } else if (req.method === 'PUT') {
-    // Update a task by ID
-    const taskId = parseInt(req.query.id);
+    // Update a task by ID (from URL parameter)
+    const taskId = parseInt(req.params.id); // Changed from req.query.id to req.params.id
     const task = tasks.find(t => t.id === taskId);
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
@@ -79,8 +79,8 @@ module.exports = (req, res) => {
     task.completed = completed;
     res.status(200).json(task);
   } else if (req.method === 'DELETE') {
-    // Delete a task by ID
-    const taskId = parseInt(req.query.id);
+    // Delete a task by ID (from URL parameter)
+    const taskId = parseInt(req.params.id); // Changed from req.query.id to req.params.id
     tasks = tasks.filter(t => t.id !== taskId);
     res.status(204).end();
   } else {
